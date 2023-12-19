@@ -1,11 +1,8 @@
 module Config
-using Sockets
 using CSV
 
 # CONFIG PATH
-global config = "/cfs/home/h/e/heberleo/BA/RtmServer/configs/cluster.csv"
-
-ip_ = string(Sockets.getipaddr(IPv4))
+global config = ""
 
 data_source = ""
 filelist_path = ""
@@ -27,6 +24,8 @@ num_inlets = 0
 
 
 function load_config(path::String)
+    @assert path != "", "No valid config path set. Call load_config with a valid path before calling any refresh functions."
+    global config = path
     global f = CSV.File(open(path))
 
     # prepared file stuff

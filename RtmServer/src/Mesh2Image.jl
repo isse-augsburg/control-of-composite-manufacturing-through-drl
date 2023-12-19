@@ -10,7 +10,7 @@ export mesh2img_py
 using Conda
 using PyCall
 # Conda.add("numpy")
-Conda.add("scipy=1.9.3")
+# Conda.add("scipy=1.9.3")
 
 # @pyimport numpy
 @pyimport scipy.interpolate as i

@@ -7,10 +7,12 @@ if __name__ == "__main__":
     reward_fn = reward_fn_v3
     server = "http://localhost:8080"
 
-    nenvs = 16
+    nenvs = 4
 
-    # model = Baseline("discrete", 3, nenvs, 5)
-    model = PPO.load(r"X:\h\e\heberleo\RL4RTM_paper\v1\slight\training\FfP\PPO\best_model.zip", print_system_info=True)
+    # model = Baseline("discrete", 3, nenvs, 5) # if you want to see the baseline (constant max. pressure on all inlets)
+
+    model_path = Path("") # TODO path to the <model>.zip 
+    model = PPO.load(model_path, print_system_info=True)
     
     e = Evaluator(
         server, 
@@ -23,8 +25,8 @@ if __name__ == "__main__":
         use_pressure=False
     )
 
-    filelist = [f"mesh{i}.jld2" for i in range(1, 101)]
-    save_path = Path(r"X:\h\e\heberleo\RL4RTM_paper\v1\slight\statistical_evaluation\FfP\PPO")
+    filelist = [f"mesh{i}.jld2" for i in range(1, 101)] # create the list of filenames that will be evaluated. Path is taken from config.csv
+    save_path = Path("") # TODO your save path
 
     e.eval_filelist(model, filelist=filelist, save_path=save_path)
 

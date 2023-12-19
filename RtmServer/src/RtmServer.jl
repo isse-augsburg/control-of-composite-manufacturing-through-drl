@@ -1,25 +1,4 @@
 ###############################################################
-# INSTALLS
-###############################################################
-using Pkg
-Pkg.add("HTTP")
-Pkg.add("JSON3")
-Pkg.add("StatsBase")
-Pkg.add("JLD2")
-Pkg.add("ImageCore")
-Pkg.add("ImageIO")
-Pkg.add("FileIO")
-Pkg.add("CSV")
-Pkg.add("Random")
-
-Pkg.add("Conda")
-Pkg.add("PyCall")
-
-using Conda
-using PyCall
-Conda.add("scipy=1.9.3")
-
-###############################################################
 # IMPORTS
 ###############################################################
 
@@ -52,6 +31,7 @@ const seed = 1337 + parse(Int, Paths.addr)
 
 mode = "training"
 filelist = ["random"]
+config_path = ARGS[1]
 
 ###############################################################
 # SERVER FUNCTIONS
@@ -62,7 +42,7 @@ function setup(req::HTTP.Request)
     mode = String(req.body)
     mode = mode[2:length(mode) - 1]
 
-    Config.load_config(Config.config)
+    Config.load_config(config_path)
     ParallelSimulation.refresh() # trigger all workers to reload the config
     MeshGenerator.refresh()
     Mesh2Image.refresh()

@@ -1,4 +1,6 @@
 include("MeshGenerator.jl")
+include("Config.jl")
+Config.load_config("") # Your config path here
 MeshGenerator.refresh()
 
 
