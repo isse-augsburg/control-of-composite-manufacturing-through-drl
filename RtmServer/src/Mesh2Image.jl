@@ -17,8 +17,8 @@ using PyCall
 
 include("Config.jl")
 
-function refresh()
-    Config.load_config(Config.config)
+function refresh(config_path::String)
+    Config.load_config(config_path)
 end
 
 function mesh2img(data, state)

@@ -66,9 +66,11 @@ end
 end
 
 # worker function to reload the config
-@everywhere function reload_config()
-    RtmSimulation.refresh()
-    Mesh2Image.refresh()
+@everywhere function reload_config(config_path::String)
+    RtmSimulation.refresh(config_path)
+    Mesh2Image.refresh(config_path)
+    msg = "WORKER LOAD CONFIG\n"
+    Log.log(msg)
 end
 
 # worker function to save updated state
@@ -114,9 +116,14 @@ function get_result(results)
     return id, finished, t
 end
 
-function refresh()
+function refresh(config_path::String)
+
+    function f() 
+        Main.reload_config(config_path)
+    end
+
     for p in workers()
-        remote_do(Main.reload_config, p)
+        remotecall_wait(f, p)
     end
 end
 

@@ -1,2 +1,6 @@
 __pycache__
 .vscode
+Dockerfile-
+simulation_storage/file_exchange/*
+simulation_storage/results/*
+

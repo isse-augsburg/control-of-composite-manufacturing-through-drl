@@ -9,10 +9,10 @@ include("Config.jl")
 include("Mesh2Image.jl")
 include("Log.jl")
 
-function refresh()
-    Config.load_config(Config.config)
-    RtmSimulation.refresh()
-    Mesh2Image.refresh()
+function refresh(config_path::String)
+    Config.load_config(config_path)
+    RtmSimulation.refresh(config_path)
+    Mesh2Image.refresh(config_path)
 end
 
 function seed(seed::Integer)
@@ -48,8 +48,6 @@ end
 function generate_base_case()
     x = 6
     y = 17.5
-    width = 15
-    height = 13
     width = 0
     height = 0
     fvc_noise = 0.005

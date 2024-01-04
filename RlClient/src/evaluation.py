@@ -1,5 +1,4 @@
-import matplotlib
-from RlClient.src.remote_rtm_env import RemoteRtmEnv
+from remote_rtm_env import RemoteRtmEnv
 from pathlib import Path
 import os
 import numpy as np
@@ -30,6 +29,7 @@ class Evaluator:
             nenvs, 
             reward_fn, 
             "training",
+            Path("/cfs/file_exchange"),
             use_fvc=use_fvc, 
             use_pressure=use_pressure, 
             action_type=action_type, 

@@ -1,12 +1,12 @@
 module Config
 using CSV
+include("Paths.jl")
 
 # CONFIG PATH
-global config = ""
-
 data_source = ""
 filelist_path = ""
 config = ""
+file = ""
 
 # sim parameters
 t_step = 0.
@@ -24,14 +24,17 @@ num_inlets = 0
 
 
 function load_config(path::String)
-    @assert path != "", "No valid config path set. Call load_config with a valid path before calling any refresh functions."
-    global config = path
-    global f = CSV.File(open(path))
+    if path != ""
+        global file = path
+    end
+    @assert file != "" "No valid config path set. Call load_config with a valid path before calling any refresh functions."
+    global config = Paths.config_path * file
+    global f = CSV.File(open(config))
 
     # prepared file stuff
-    global data_source = f["data_source"][1]
-    global filelist_path = f["filelist"][1]
-    global origin_mesh = f["origin_mesh"][1]
+    global data_source = Paths.testset_path * f["data_source"][1] * "/"
+    global filelist_path = Paths.validationset_path * f["filelist"][1]
+    global origin_mesh = Paths.origin_mesh_path * f["origin_mesh"][1]
 
     # sim parameters
     global t_step = f["t_step"][1]

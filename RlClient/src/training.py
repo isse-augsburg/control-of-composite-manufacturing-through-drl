@@ -1,7 +1,7 @@
 from pathlib import Path
 import numpy as np
-from RlClient.src.my_utils import get_leftmost_and_rightmost_edges_of_ff_min_max
-from RlClient.src.remote_rtm_env import RemoteRtmEnv
+from my_utils import get_leftmost_and_rightmost_edges_of_ff_min_max
+from remote_rtm_env import RemoteRtmEnv
 from stable_baselines3.common.vec_env import VecMonitor
 from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback, CallbackList
 
@@ -29,11 +29,13 @@ def train_model(
     monitor_path = save_path / "monitoring"
     monitor_path.mkdir(parents=True, exist_ok=True)
 
+    share_path = Path("/cfs/file_exchange")
+
     env = VecMonitor(
-        venv=RemoteRtmEnv(servers[:-1], envs_per_server, reward_fn, "training", use_fvc=use_fvc, use_pressure=use_pressure, action_type=action_type, num_discrete_actions=num_discrete_actions),
+        venv=RemoteRtmEnv(servers[:-1], envs_per_server, reward_fn, "training", share_path, use_fvc=use_fvc, use_pressure=use_pressure, action_type=action_type, num_discrete_actions=num_discrete_actions),
         filename=str(monitor_path)
     )
-    
+    print("Training env created.")
     # MODEL
     (save_path/ "tensorboard").mkdir(parents=True, exist_ok=True)
     model = model_fn(env)
@@ -49,8 +51,9 @@ def train_model(
 
     # EVAL CALLBACK
     eval_env = VecMonitor(
-        venv=RemoteRtmEnv([servers[-1]], envs_per_server, reward_fn, "eval", use_fvc=use_fvc, use_pressure=use_pressure, action_type=action_type, num_discrete_actions=num_discrete_actions)
+        venv=RemoteRtmEnv([servers[-1]], envs_per_server, reward_fn, "eval", share_path, use_fvc=use_fvc, use_pressure=use_pressure, action_type=action_type, num_discrete_actions=num_discrete_actions)
     )
+    print("Validation env created.")
     eval_callback = EvalCallback(
         eval_env, 
         best_model_save_path=str(save_path),

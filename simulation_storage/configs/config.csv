@@ -1,0 +1,2 @@
+t_step,p_min,p_max,fvc_normal,fvc_patch,filelist,data_source,inlets,origin_mesh
+0.5,10000,500000,0.35,0.45,validationset_example.jld2,testset_example,3,50x50.erfh5

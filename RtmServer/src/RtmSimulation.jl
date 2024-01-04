@@ -6,8 +6,8 @@ include("MySolver_experimental.jl")
 include("Config.jl")
 include("Log.jl")
 
-function refresh()
-    Config.load_config(Config.config)
+function refresh(config_path::String)
+    Config.load_config(config_path)
 end
 
 function prepare(data::Dict)
@@ -43,7 +43,6 @@ function prepare(data::Dict)
 
     # time step calculation and simulation time
     deltatmax = 0.2
-    # TODO
     area = minimum(cellvolume ./ cellthickness)
 
     #area = min(cellvolume ./ cellthickness)
@@ -276,7 +275,7 @@ function step(pressure_vals::Vector{Float64}, data::Dict, state::Dict)
     # load sim state
     t = state["t"]
     t_next = state["t_next"]
-    deltat = state["deltat"]
+    deltat::Float64 = state["deltat"]
     iter = state["iter"]
     u = state["u"]
     v = state["v"]

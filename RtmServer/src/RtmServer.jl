@@ -8,13 +8,13 @@ using FileIO
 using JSON3
 using StatsBase
 using Distributed
-include("ParallelSimulation.jl")
 include("RtmSimulation.jl")
 include("Log.jl")
 include("Mesh2Image.jl")
 include("Paths.jl")
 include("Config.jl")
 include("MeshGenerator.jl")
+@everywhere include("ParallelSimulation.jl")
 
 
 ###############################################################
@@ -43,10 +43,10 @@ function setup(req::HTTP.Request)
     mode = mode[2:length(mode) - 1]
 
     Config.load_config(config_path)
-    ParallelSimulation.refresh() # trigger all workers to reload the config
-    MeshGenerator.refresh()
-    Mesh2Image.refresh()
-    RtmSimulation.refresh()
+    ParallelSimulation.refresh(config_path) # trigger all workers to reload the config
+    MeshGenerator.refresh(config_path)
+    Mesh2Image.refresh(config_path)
+    RtmSimulation.refresh(config_path)
 
     MeshGenerator.seed(seed)
 
@@ -139,7 +139,7 @@ function reset_all(req::HTTP.Request)
         selected_files = StatsBase.sample(filelist, nenvs, replace=true)
         Log.log("Reset all envs to random generated cases.")
     else
-        selected_files = filelist
+        selected_files = filelist[1:nenvs]
         Log.log("Reset all envs. filelist: " * Config.filelist_path)
     end
 
