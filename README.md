@@ -4,7 +4,7 @@ Repository for both RL code and RTM Simulation for the Paper "Control of Composi
 
 #### Requirements/ Installation:
 
-Both module simply require docker. If you want to create own datasets and do further experiments, a local julia and python installations and further programming knowledge are helpful.
+Both module simply require docker. If you want to create own datasets and do further experiments, local julia and python installations and further programming knowledge are helpful.
 
 
 #### How set up the RtmServer:
