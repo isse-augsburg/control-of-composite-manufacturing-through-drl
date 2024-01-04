@@ -2,7 +2,7 @@
 
 Repository for both Reinforcement Learning code and RTM Simulation for the Paper "Control of Composite Manufacturing through Deep Reinforcement Learning", accepted at the International Conference on Machine Learning and Applications (ICMLA) 2023.
 
-#### Requirements/ Installation:
+#### Requirements/Installation:
 
 Both module simply require docker. If you want to create own datasets and do further experiments, local julia and python installations and further programming knowledge are helpful.
 
