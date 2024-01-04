@@ -27,9 +27,9 @@ Both module simply require docker. If you want to create own datasets and do fur
     Each single environment is basically useless after finishing once, because it will reset to a randomly selected file out of the given filelist.
     This behaviour is meant only for validation during training.
     If you want to create own datasets through some jula scripting:
-    `filelist.jld2` needs to be a `Vector{String}`, written to .jld2.
-    The entries are the raw paths to the `<mesh-xxx>.jld2` files of the dataset.
-    Meshes can be created by manually calling functions from `MeshGnerator.jl`, where you can also set parameters for patch placement, size, etc.
+    - `filelist.jld2` needs to be a `Vector{String}`, written to .jld2.
+    - The entries are the raw paths to the `<mesh-xxx>.jld2` files of the dataset.
+    - Meshes can be created by manually calling functions from `MeshGnerator.jl`, where you can also set parameters for patch placement, size, etc.
 
     ###### data_source:
 
