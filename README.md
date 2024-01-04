@@ -12,7 +12,7 @@ Both module simply require docker. If you want to create own datasets and do fur
 
 - config file:
 
-    The RtmServer needs a configuration file of the following format. An example file is provided at `simulation_storage/configs/config.csv`
+    The RtmServer needs a configuration file of the following format. An example file is provided at `.../simulation_storage/configs/config.csv`
 
     csv-file of format:
 
@@ -33,7 +33,7 @@ Both module simply require docker. If you want to create own datasets and do fur
 
     ###### data_source:
 
-    Path that will be prepended to filenames when invoking GET /file_select
+    Path that will be prepended to filenames when invoking `GET /file_select`.
     Usually used to evaluate models on a testset.
     Needs to end with / or \\, dependent on the target os.
 
@@ -83,7 +83,7 @@ If you encounter OPEN_BLAS Warnings when executing code inside the container, en
 
 #### Example data and config:
 
-Example data, a trained model and a config file are provided at `./similation_storage/...` and are to be mounted into the docker containers at `/cfs`.
+Example data, a trained model and a config file are provided at `.../simulation_storage/...` and are to be mounted into the docker containers at `/cfs`.
 The provided test and validation set refer to the experiment presented in the paper and the config is set up accordingly.
 The model checkpoints are taken from the A2C/PPO agents trained with flowfront, pressure and fvc observation.
 
@@ -104,7 +104,7 @@ The model checkpoints are taken from the A2C/PPO agents trained with flowfront, 
     Execute the script under RlClient/src/example_training.py
     Insert the IPs the RtmServers are serving on.
     Adjust the envs_per_server variable.
-    Insert your desired save paths in the python script (use something from your mounted `/cfs/results/`` directory).
+    Insert your desired save paths in the python script (use something from your mounted `/cfs/results/` directory).
     You can adjust some parameters in the training script, those are marked with `# TODO`.
     Note that a high number of steps is needed for meaningful training results, which can be hard to achieve on a single machine.
 
@@ -119,7 +119,7 @@ The model checkpoints are taken from the A2C/PPO agents trained with flowfront, 
         docker run --name rl-client -it -v <YOUR PATH>/control-of-composite-manufacturing-through-drl/simulation_storage:/cfs -v /Users/leoheber/repos/control-of-composite-manufacturing-through-drl/RlClient/src:/sourcecode rl-client bash
 
     Attach a shell or a Visual Studio Code window to the running container.
-    Use the script at `/sourcecode/example_evaluation.py` (your local `.../RlClient/src/`` mounted in the container).
+    Use the script at `/sourcecode/example_evaluation.py` (your local `.../RlClient/src/` mounted in the container).
     Insert the IP the RtmServer is serving on.
     Adjust the `envs_per_server` variable.
     Insert your desired save paths and the path to the model to evaluate.
